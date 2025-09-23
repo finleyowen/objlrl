@@ -1,3 +1,11 @@
 {
-	"editor.rulers": [80]
+	"editor.rulers": [
+		80
+	],
+	"files.associations": {
+		"functional": "cpp",
+		"xstring": "cpp",
+		"string": "cpp",
+		"regex": "cpp"
+	}
 }
