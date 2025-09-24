@@ -185,7 +185,7 @@ void lexer_test2()
         behavedAsExpected = true;
     }
 
-    // throw a runtime error if the behaviour was unmatched - this is a little
+    // throw a runtime error if the behaviour was unexpected - this is a little
     // confusing since we just handled a runtime error, but this error is thrown
     // if lexer->lex(s) does not throw a runtime error, and this error is not
     // handled in the code and will crash the test program
