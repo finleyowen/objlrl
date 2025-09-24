@@ -1,5 +1,5 @@
 /**
- * @file lexer.hpp
+ * @file lexer.cpp
  *
  * @brief Implements methods for the `CandidateToken` struct and the `Lexer`
  * class.
