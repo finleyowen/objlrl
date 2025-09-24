@@ -29,7 +29,7 @@ public:
     }
 
     // token type getter (overrides pure virtual method in BaseToken class)
-    const TokenType *getTokenType() const
+    const TokenType *getTokenType() const override
     {
         return &tokenType;
     }
@@ -54,7 +54,7 @@ public:
     }
 
     // token type getter
-    const TokenType *getTokenType() const
+    const TokenType *getTokenType() const override
     {
         return &tokenType;
     }
@@ -74,7 +74,7 @@ public:
     }
 
     // token type getter
-    const TokenType *getTokenType() const
+    const TokenType *getTokenType() const override
     {
         return &tokenType;
     }
