@@ -128,27 +128,27 @@ void lexer_test1(void)
     // check program output
     string line;
     assert(getline(ss, line));
-    assert(line == "uint token: \"12\"");
+    assert(line == "uint candidate: \"12\"");
     assert(getline(ss, line));
-    assert(line == "whitespace token: \" \"");
+    assert(line == "whitespace candidate: \" \"");
     assert(getline(ss, line));
-    assert(line == "int token: \"-24\"");
+    assert(line == "int candidate: \"-24\"");
     assert(getline(ss, line));
-    assert(line == "whitespace token: \" \"");
+    assert(line == "whitespace candidate: \" \"");
     assert(getline(ss, line));
-    assert(line == "uint token: \"65\"");
+    assert(line == "uint candidate: \"65\"");
     assert(getline(ss, line));
-    assert(line == "whitespace token: \" \"");
+    assert(line == "whitespace candidate: \" \"");
     assert(getline(ss, line));
-    assert(line == "int token: \"-2\"");
+    assert(line == "int candidate: \"-2\"");
     assert(getline(ss, line));
-    assert(line == "whitespace token: \" \"");
+    assert(line == "whitespace candidate: \" \"");
     assert(getline(ss, line));
-    assert(line == "uint token: \"44\"");
+    assert(line == "uint candidate: \"44\"");
     assert(getline(ss, line));
-    assert(line == "whitespace token: \" \"");
+    assert(line == "whitespace candidate: \" \"");
     assert(getline(ss, line));
-    assert(line == "int token: \"-67\"");
+    assert(line == "int candidate: \"-67\"");
 
     // cleanup
     delete lexer;

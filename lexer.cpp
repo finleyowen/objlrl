@@ -1,8 +1,7 @@
 /**
  * @file lexer.cpp
  *
- * @brief Implements methods for the `CandidateToken` struct and the `Lexer`
- * class.
+ * @brief Implements methods for the `Lexer` class.
  *
  * Copyright Finley Owen, 2025. All rights reserved.
  */
@@ -11,60 +10,12 @@
 #include <sstream>
 using namespace std;
 
-// ======================
-// CandidateToken methods
-// ======================
-
-// constructor
-CandidateToken::CandidateToken(const TokenType *tokenType, smatch match)
-    : tokenType(tokenType), match(match) {}
-
-// compare two candidate tokens by their starting positions
-bool CandidateToken::cmpPos(const CandidateToken *&a, const CandidateToken *&b)
-{
-    return a->match.position(0) < b->match.position(0);
-}
-
-// compare two candidate tokens by length
-bool CandidateToken::isLonger(const CandidateToken *&other) const
-{
-    return this->match.length(0) > other->match.length(0);
-}
-
-// indicate if two candidates overlap/intersect each other
-bool CandidateToken::intersects(const CandidateToken *&other) const
-{
-    unsigned int thisStart = this->match.position(0),
-                 thisLength = this->match.length(0);
-
-    unsigned int otherStart = other->match.position(0),
-                 otherLength = other->match.length(0);
-
-    // if this starts first
-    if (thisStart < otherStart)
-    {
-        // intersection occurs when other starts before this ends
-        // in other words, the end of this occurs after the start of other
-        return thisStart + thisLength > otherStart;
-    }
-
-    // if other starts first
-    else if (thisStart > otherStart)
-    {
-        // intersection occurs when this starts before other ends
-        // in other words, the end of other occurs after the start of this
-        return otherStart + otherLength > thisStart;
-    }
-    // if the two start in the sampe place they must intersect
-    return true;
-}
-
 // =============
 // Lexer methods
 // =============
 
 // handle unmatched input by throwing a runtime error
-void Lexer::handleUnmatched(const string *s, unsigned int position,
+void Lexer::handleUnmatched(const string *const s, unsigned int position,
                             unsigned int length)
 {
     ostringstream ss;
@@ -90,7 +41,7 @@ void Lexer::findCandidates(const string *s)
 
         for (; it != end; it++)
         {
-            CandidateToken *candidate = new CandidateToken(tokenType, *it);
+            CandidateToken *candidate = new CandidateToken(tokenType, *it, s);
             candidates.push_back(candidate);
         }
     }
@@ -226,14 +177,6 @@ Lexer::~Lexer()
 // ==================
 // Debug-only methods
 // ==================
-
-// string representation of a candidate token
-string CandidateToken::toString() const
-{
-    ostringstream ss;
-    ss << tokenType->name << " token: \"" << match.str(0) << '"';
-    return ss.str();
-}
 
 // string representation of the candidate tokens
 string Lexer::candidatesString() const

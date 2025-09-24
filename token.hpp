@@ -69,4 +69,50 @@ public:
 #endif
 };
 
+/// @brief Represents a candidate for a token in the lexer.
+struct CandidateToken
+{
+	/// @brief The type of token whose pattern was matched. This should point to
+	/// an `inline static const TokenType` attribute in the token class (a child
+	/// class of `BaseToken`).
+	const TokenType *tokenType;
+
+	/// @brief The match of the program string with the token type's pattern.
+	const smatch match;
+
+	const string *src;
+
+	/// @brief Constructor.
+	/// @param tokenType The type of token whose pattern was matched.
+	/// @param match The match of the program string with the token type's
+	/// pattern.
+	CandidateToken(const TokenType *tokenType, const smatch match,
+				   const string *src);
+
+	/// @brief Compare two candidate tokens by their starting positions.
+	/// Returns `true` if `a` starts before `b`.
+	/// @param a A candidate token.
+	/// @param b A candidate token.
+	/// @return `true` if `a` starts before `b`, else `false`.
+	static bool cmpPos(const CandidateToken *&a, const CandidateToken *&b);
+
+	/// @brief Compare two candidate tokens by their lengths. Returns `true` if
+	/// `this` is longer than `other`, else `false`.
+	/// @param other Another candidate token.
+	/// @return `true` if `this` is longer than `other`, else `false`.
+	bool isLonger(const CandidateToken *&other) const;
+
+	/// @brief Indicates whether two candidate tokens intersect/overlap in the
+	/// text.
+	/// @param other Another candidate token.
+	/// @return `true` if `this` overlaps with `other`, else `false`.
+	bool intersects(const CandidateToken *&other) const;
+
+#ifndef NDEBUG
+	/// @brief Get a string representation of this candidate token (debug only).
+	/// @return A string representation of this candidate token.
+	string toString() const;
+#endif
+};
+
 #endif
