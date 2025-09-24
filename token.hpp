@@ -1,7 +1,8 @@
 /**
  * @file token.hpp
  *
- * @brief Declares the `TokenType` struct and the `BaseToken` class.
+ * @brief Declares the `TokenType` struct, the `BaseToken` class, and the
+ * `CandidateToken` struct.
  *
  * Copyright Finley Owen, 2025. All rights reserved.
  */
