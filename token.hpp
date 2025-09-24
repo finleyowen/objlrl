@@ -19,18 +19,22 @@ class BaseToken;
 /// @brief Represents a type of token in the language.
 struct TokenType
 {
-	/// @brief Regular expression (stored as a string) that matches tokens of
-	/// this token type.
+	/// @brief Name for this token type.
+	const string name;
+
+	/// @brief Regular expression (as a string) that matches tokens of this
+	/// token type.
 	const string pat;
 
 	/// @brief Function to lex tokens of this token type.
 	const function<BaseToken *(smatch *)> lexFn;
 
 	/// @brief Constructor.
+	/// @param name Name for this token type.
 	/// @param pat Regular expression (as a string) that matches tokens of this
 	/// token type.
 	/// @param lexFn Function to lex tokens of this token type.
-	TokenType(string pat, function<BaseToken *(smatch *)> lexFn);
+	TokenType(string name, string pat, function<BaseToken *(smatch *)> lexFn);
 };
 
 /// @brief Represents a token in the program.
@@ -41,6 +45,10 @@ protected:
 	/// @return Pointer to a `TokenType`.
 	/// @note Concrete subclasses need to override this pure virtual method.
 	virtual const TokenType *getTokenType() = 0;
+
+public:
+	/// @brief Virtual destructor.
+	virtual ~BaseToken();
 };
 
 #endif

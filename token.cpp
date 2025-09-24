@@ -1,5 +1,5 @@
 /**
- * @file token.hpp
+ * @file token.cpp
  *
  * @brief Implements methods for the `TokenType` struct.
  *
@@ -8,6 +8,18 @@
 
 #include "token.hpp"
 
+// =================
+// TokenType methods
+// =================
+
 // constructor
-TokenType::TokenType(string pat, function<BaseToken *(smatch *)> lexFn)
-	: pat(pat), lexFn(lexFn) {}
+TokenType::TokenType(string name, string pat,
+					 function<BaseToken *(smatch *)> lexFn)
+	: name(name), pat(pat), lexFn(lexFn) {}
+
+// =================
+// BaseToken methods
+// =================
+
+// virtual destructor
+BaseToken::~BaseToken() {}
