@@ -1,3 +1,5 @@
+# Copyright Finley Owen, 2025. All rights reserved.
+
 CC = g++
 CFLAGS = -Wall -g
 

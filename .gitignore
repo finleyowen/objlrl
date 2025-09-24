@@ -1,3 +1,4 @@
+# Copyright Finley Owen, 2025. All rights reserved.
 *.o
 /tests
 /docs
