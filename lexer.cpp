@@ -1,12 +1,11 @@
 /**
- * @file token.cpp
+ * @file lexer.hpp
  *
- * @brief Implements methods for the `CandidateToken` struct and the `Lexer`
+ * @brief Implements methods for the the `CandidateToken` struct and the `Lexer`
  * class.
  *
  * Copyright Finley Owen, 2025. All rights reserved.
  */
-
 #include "lexer.hpp"
 
 // only need <sstream> in debug mode
@@ -24,7 +23,7 @@ CandidateToken::CandidateToken(const TokenType *tokenType, smatch match)
 	: tokenType(tokenType), match(match) {}
 
 // compare two candidate tokens by their starting positions
-bool CandidateToken::cmpPos(CandidateToken *&a, CandidateToken *&b)
+bool CandidateToken::cmpPos(const CandidateToken *&a, const CandidateToken *&b)
 {
 	return a->match.position(0) < b->match.position(0);
 }
@@ -64,6 +63,12 @@ void Lexer::findCandidates(const string *s)
 			candidates.push_back(candidate);
 		}
 	}
+}
+
+// sort candidates by their starting positions
+void Lexer::sortCandidates()
+{
+	candidates.sort(CandidateToken::cmpPos);
 }
 
 // lex a string

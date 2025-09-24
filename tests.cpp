@@ -95,7 +95,13 @@ void lexer_debug(void)
 	lexer->lex(s);
 
 	// print candidate tokens
-	cout << lexer->candidatesStr() << endl;
+	cout << "unsorted: " << lexer->candidatesStr() << endl;
+
+	// sort candidates
+	lexer->sortCandidates();
+
+	// print candidate tokens
+	cout << "sorted: " << lexer->candidatesStr() << endl;
 
 	// cleanup
 	delete lexer;

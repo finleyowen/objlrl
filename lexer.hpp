@@ -34,10 +34,11 @@ struct CandidateToken
 	/// @param a A candidate token.
 	/// @param b A candidate token.
 	/// @return `true` if `a` starts before `b`, else `false`.
-	static bool cmpPos(CandidateToken *&a, CandidateToken *&b);
+	static bool cmpPos(const CandidateToken *&a, const CandidateToken *&b);
 
 #ifndef NDEBUG
-	// get a string representation of this candidate token
+	/// @brief Get a string representation of this candidate token (debug only).
+	/// @return A string representation of this candidate token.
 	string to_string() const;
 #endif
 };
@@ -69,6 +70,10 @@ public:
 	/// @param s A string to lex.
 	void findCandidates(const string *s);
 
+	/// @brief Sort the candidates list by their starting positions in the
+	/// program.
+	void sortCandidates();
+
 	/// @brief Lex a string producing a list of `BaseToken` pointers.
 	/// @param _s A string to lex.
 	void lex(string _s);
@@ -77,7 +82,7 @@ public:
 	~Lexer();
 
 #ifndef DEBUG
-	/// @brief Get a string representation of the candidate tokens.
+	/// @brief Get a string representation of the candidate tokens (debug only).
 	/// @return A string representation of the candidate tokens.
 	string candidatesStr() const;
 #endif

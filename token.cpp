@@ -1,7 +1,8 @@
 /**
  * @file token.cpp
  *
- * @brief Implements methods for the `TokenType` struct.
+ * @brief Implements methods for the `TokenType` struct and the `BaseToken`
+ * class.
  *
  * Copyright Finley Owen, 2025. All rights reserved.
  */
