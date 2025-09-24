@@ -1,7 +1,7 @@
 /**
  * @file lexer.hpp
  *
- * @brief Implements methods for the the `CandidateToken` struct and the `Lexer`
+ * @brief Implements methods for the `CandidateToken` struct and the `Lexer`
  * class.
  *
  * Copyright Finley Owen, 2025. All rights reserved.
