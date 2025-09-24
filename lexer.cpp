@@ -59,19 +59,6 @@ bool CandidateToken::intersects(const CandidateToken *&other) const
     return true;
 }
 
-// ==========
-// Debug only
-// ==========
-#ifndef NDEBUG
-// string representation of candidate token
-string CandidateToken::to_string() const
-{
-    ostringstream ss;
-    ss << tokenType->name << " token: \"" << match.str(0) << '"';
-    return ss.str();
-}
-#endif
-
 // =============
 // Lexer methods
 // =============
@@ -193,6 +180,20 @@ void Lexer::lex(string _s)
 
     // find the candidate tokens for s and add them to the candidates list
     findCandidates(s);
+
+    // sort the candidate tokens
+    sortCandidates();
+
+    // filter the candidate tokens (pass `s` to generate an error message from
+    // if needed)
+    filterCandidates(s);
+
+    // convert the candidate tokens to tokens; add them to the list of tokens
+    for (const CandidateToken *candidate : candidates)
+    {
+        const BaseToken *token = candidate->tokenType->lex(&candidate->match);
+        tokens.push_back(token);
+    }
 }
 
 // destructor
@@ -221,16 +222,41 @@ Lexer::~Lexer()
 }
 
 #ifndef NDEBUG
-// string representation of candidate tokens
-string Lexer::candidatesStr() const
+
+// ==================
+// Debug-only methods
+// ==================
+
+// string representation of a candidate token
+string CandidateToken::toString() const
+{
+    ostringstream ss;
+    ss << tokenType->name << " token: \"" << match.str(0) << '"';
+    return ss.str();
+}
+
+// string representation of the candidate tokens
+string Lexer::candidatesString() const
 {
     ostringstream ss;
     for (const CandidateToken *candidate : candidates)
     {
-        ss << candidate->to_string() << "\n";
+        ss << candidate->toString() << "\n";
     }
     return ss.str();
 }
+
+// string representation of the tokens lexed
+string Lexer::tokensString() const
+{
+    ostringstream ss;
+    for (const BaseToken *token : tokens)
+    {
+        ss << token->toString() << "\n";
+    }
+    return ss.str();
+}
+
 #endif
 
 //

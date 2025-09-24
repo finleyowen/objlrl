@@ -15,8 +15,14 @@
 
 // constructor
 TokenType::TokenType(string name, string pat,
-					 function<BaseToken *(smatch *)> lexFn)
+					 function<const BaseToken *(const smatch *)> lexFn)
 	: name(name), pat(pat), lexFn(lexFn) {}
+
+// lex convenience method
+const BaseToken *TokenType::lex(const smatch *match) const
+{
+	return lexFn(match);
+}
 
 // =================
 // BaseToken methods
@@ -24,3 +30,29 @@ TokenType::TokenType(string name, string pat,
 
 // virtual destructor
 BaseToken::~BaseToken() {}
+
+#ifndef NDEBUG
+
+// only needed in debug mode
+#include <sstream>
+using namespace std;
+
+// ==================
+// Debug-only methods
+// ==================
+
+// string representation of a token type
+string TokenType::toString() const
+{
+	return name;
+}
+
+// string representation of a token
+string BaseToken::toString() const
+{
+	ostringstream ss;
+	ss << getTokenType()->toString() << " token";
+	return ss.str();
+}
+
+#endif

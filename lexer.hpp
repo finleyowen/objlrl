@@ -51,7 +51,7 @@ struct CandidateToken
 #ifndef NDEBUG
     /// @brief Get a string representation of this candidate token (debug only).
     /// @return A string representation of this candidate token.
-    string to_string() const;
+    string toString() const;
 #endif
 };
 
@@ -108,7 +108,12 @@ public:
 #ifndef DEBUG
     /// @brief Get a string representation of the candidate tokens (debug only).
     /// @return A string representation of the candidate tokens.
-    string candidatesStr() const;
+    string candidatesString() const;
+
+    /// @brief Get a string representation of the tokens stored in the lexer
+    /// (debug only).
+    /// @return A string representation of the tokens stored in the lexer.
+    string tokensString() const;
 #endif
 };
 #endif

@@ -21,13 +21,13 @@ public:
     UIntToken(unsigned int val) : val(val) {}
 
     // lex method
-    static BaseToken *lex(smatch *match)
+    static const BaseToken *lex(const smatch *match)
     {
         return new UIntToken(stoul(match->str(0)));
     }
 
     // token type getter (overrides pure virtual method in BaseToken class)
-    const TokenType *getTokenType()
+    const TokenType *getTokenType() const
     {
         return &tokenType;
     }
@@ -45,14 +45,14 @@ public:
     IntToken(int val) : val(val) {}
 
     // lex method
-    static BaseToken *lex(smatch *match)
+    static const BaseToken *lex(const smatch *match)
     {
         string s = match->str(0);
         return new IntToken(stoi(s));
     }
 
     // token type getter
-    const TokenType *getTokenType()
+    const TokenType *getTokenType() const
     {
         return &tokenType;
     }
@@ -66,13 +66,13 @@ class WhitespaceToken : public BaseToken
 {
 public:
     // lex method
-    static BaseToken *lex(smatch *match)
+    static const BaseToken *lex(const smatch *match)
     {
         return new WhitespaceToken();
     }
 
     // token type getter
-    const TokenType *getTokenType()
+    const TokenType *getTokenType() const
     {
         return &tokenType;
     }
@@ -95,23 +95,13 @@ void lexer_debug(void)
     string s = "12 -24 65 -2 44 -67";
     lexer->lex(s);
 
-    // print candidate tokens
-    cout << "== unsorted ==\n"
-         << lexer->candidatesStr() << endl;
+    // print the candidate tokens
+    cout << "== candidates ==\n";
+    cout << lexer->candidatesString() << "\n";
 
-    // sort candidates
-    lexer->sortCandidates();
-
-    // print candidate tokens
-    cout << "== sorted == \n"
-         << lexer->candidatesStr() << endl;
-
-    // filter candidates
-    lexer->filterCandidates(&s);
-
-    // print candidate tokens
-    cout << "== filtered ==\n"
-         << lexer->candidatesStr() << endl;
+    // print the tokens
+    cout << "== tokens ==\n";
+    cout << lexer->tokensString() << "\n";
 
     // cleanup
     delete lexer;
