@@ -2,7 +2,7 @@
  * @file token.cpp
  *
  * @brief Implements methods for the `TokenType` struct, the `BaseToken`
- * class, and the `CandidateToken` struct.
+ * class, the `CandidateToken` struct, and the `TokenQueue` class.
  *
  * Copyright Finley Owen, 2025. All rights reserved.
  */
@@ -78,6 +78,44 @@ bool CandidateToken::intersects(const CandidateToken *&other) const
 	}
 	// if the two start in the sampe place they must intersect
 	return true;
+}
+
+// ==================
+// TokenQueue methods
+// ==================
+
+// constructor
+TokenQueue::TokenQueue(list<const BaseToken *> *data) : data(data) {}
+
+// return the first element or null if the list is empty
+const BaseToken *TokenQueue::getHead() const
+{
+	if (data->empty())
+		return nullptr;
+
+	return data->front();
+}
+
+// delete the first element, return new first element or null if:
+// 		a) the list was already empty before the method call
+// 		b) the list is empty after the method call
+const BaseToken *TokenQueue::dropHead()
+{
+	// return null on empty
+	if (data->empty())
+		return nullptr;
+
+	// delete the first data item
+	delete data->front();
+
+	// remove the first node from the list
+	auto next = data->erase(data->begin());
+
+	// decide what to return
+	if (next == data->end())
+		return nullptr;
+	else
+		return *next;
 }
 
 #ifndef NDEBUG

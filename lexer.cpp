@@ -10,6 +10,13 @@
 #include <sstream>
 using namespace std;
 
+#ifndef NDEBUG
+
+#include <iostream>
+using namespace std;
+
+#endif
+
 // =============
 // Lexer methods
 // =============
@@ -147,6 +154,12 @@ void Lexer::lex(string _s)
     }
 }
 
+// initialise a token queue with the tokens stored in this lexer
+TokenQueue Lexer::getTokenQueue()
+{
+    return TokenQueue(&tokens);
+}
+
 // destructor
 Lexer::~Lexer()
 {
@@ -162,7 +175,10 @@ Lexer::~Lexer()
         delete candidate;
     }
 
-    // free tokens
+    // free tokens if there are any here - note there shouldn't be because they
+    // should be freed by the token queue, however if the user never creates a
+    // token queue (see lexerTest1 and lexerTest2 in tests.cpp) the tokens need
+    // to be freed here
     for (const BaseToken *token : tokens)
     {
         delete token;

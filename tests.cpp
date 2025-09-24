@@ -85,7 +85,7 @@ public:
 };
 
 // help debug the lexer
-void lexer_debug(void)
+void lexerDebug()
 {
     // create a lexer and register token types
     Lexer *lexer = new Lexer();
@@ -93,8 +93,10 @@ void lexer_debug(void)
     lexer->registerTokenType(&UIntToken::tokenType);
     lexer->registerTokenType(&IntToken::tokenType);
 
-    // lex program string
+    // program string
     string s = "12 -24 65 -2 44 -67";
+
+    // lex program string
     lexer->lex(s);
 
     // print the candidate tokens
@@ -110,7 +112,7 @@ void lexer_debug(void)
 }
 
 // check the behaviour of the lexer when handling overlapping token types
-void lexer_test1(void)
+void lexerTest1()
 {
     // create a lexer and register token types
     Lexer *lexer = new Lexer();
@@ -118,15 +120,17 @@ void lexer_test1(void)
     lexer->registerTokenType(&UIntToken::tokenType);
     lexer->registerTokenType(&IntToken::tokenType);
 
-    // lex program string
+    // program string
     string s = "12 -24 65 -2 44 -67";
+
+    // lex program string
     lexer->lex(s);
 
+    // check program output
     string candidatesString = lexer->candidatesString();
     istringstream ss = istringstream(candidatesString);
-
-    // check program output
     string line;
+
     assert(getline(ss, line));
     assert(line == "uint candidate: \"12\"");
     assert(getline(ss, line));
@@ -155,7 +159,7 @@ void lexer_test1(void)
 }
 
 // check the behaviour of the lexer when handling unmatched input
-void lexer_test2()
+void lexerTest2()
 {
 
     // create a lexer and register token types (note: don't register the
@@ -197,12 +201,41 @@ void lexer_test2()
     delete lexer;
 }
 
+void tokenQueueTest1()
+{
+
+    // create a lexer and register token types
+    Lexer *lexer = new Lexer();
+    lexer->registerTokenType(&WhitespaceToken::tokenType);
+    lexer->registerTokenType(&UIntToken::tokenType);
+    lexer->registerTokenType(&IntToken::tokenType);
+
+    // program string
+    string s = "12 -24";
+
+    // lex program string
+    lexer->lex(s);
+
+    // iterate through tokens
+    TokenQueue tq = lexer->getTokenQueue();
+
+    // check output
+    assert(tq.getHead()->toString() == "uint token");
+    assert(tq.dropHead()->toString() == "whitespace token");
+    assert(tq.dropHead()->toString() == "int token");
+    assert(tq.dropHead() == nullptr);
+
+    // cleanup
+    delete lexer;
+}
+
 // program entry - run all tests and debug if required
 int main(void)
 {
-    lexer_test1();
-    lexer_test2();
-    // lexer_debug();
+    lexerTest1();
+    lexerTest2();
+    tokenQueueTest1();
+    // lexerDebug();
 }
 
 //

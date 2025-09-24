@@ -1,8 +1,8 @@
 /**
  * @file token.hpp
  *
- * @brief Declares the `TokenType` struct, the `BaseToken` class, and the
- * `CandidateToken` struct.
+ * @brief Declares the `TokenType` struct, the `BaseToken` class, the
+ * `CandidateToken` struct, and the `TokenQueue` class.
  *
  * Copyright Finley Owen, 2025. All rights reserved.
  */
@@ -13,6 +13,7 @@
 #include <string>
 #include <functional>
 #include <regex>
+#include <list>
 using namespace std;
 
 // declare the BaseToken up here to use it in the TokenType declaration; then
@@ -114,6 +115,32 @@ struct CandidateToken
 	/// @return A string representation of this candidate token.
 	string toString() const;
 #endif
+};
+
+/// @brief Provides restricted access to a `list<const BaseToken *>`, exposing
+/// only the `getHead` and `dropHead` methods.
+class TokenQueue
+{
+private:
+	/// @brief Pointer to a list of token pointers (stored in the lexer).
+	list<const BaseToken *> *data;
+
+public:
+	/// @brief Constructor.
+	/// @param data Pointer to a list of token pointers (stored in the lexer).
+	TokenQueue(list<const BaseToken *> *data);
+
+	/// @brief Get the first element in the list.
+	/// @return The first element in the list.
+	const BaseToken *getHead() const;
+
+	/// @brief Remove the first element from the list and return the new first
+	/// element (the second element in the previous list). Return `nullptr` if
+	/// the list is empty after the deletion, or if the list was empty before
+	/// the method was called.
+	/// @return The new first element (the second element in the previous list),
+	/// or `nullptr`.
+	const BaseToken *dropHead();
 };
 
 #endif

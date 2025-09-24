@@ -61,6 +61,10 @@ public:
     /// @param _s A string to lex.
     void lex(string _s);
 
+    /// @brief Initialise a `TokenQueue` with the tokens stored in this lexer.
+    /// @return A `TokenQueue` with the tokens stored in this lexer.
+    TokenQueue getTokenQueue();
+
     /// @brief Destructor.
     ~Lexer();
 
