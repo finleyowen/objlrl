@@ -130,8 +130,10 @@ public:
 	/// @param data Pointer to a list of token pointers (stored in the lexer).
 	TokenQueue(list<const BaseToken *> *data);
 
-	/// @brief Get the first element in the list.
-	/// @return The first element in the list.
+	/// @brief Get the first element in the list. Return `nullptr` if the list
+	/// is empty.
+	/// @return The first element in the list, or `nullptr` if the list is
+	/// empty.
 	const BaseToken *getHead() const;
 
 	/// @brief Remove the first element from the list and return the new first

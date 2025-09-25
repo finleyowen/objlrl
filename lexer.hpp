@@ -6,8 +6,8 @@
  * Copyright Finley Owen, 2025. All rights reserved.
  */
 
-#ifndef __TEMPLATE_HPP__
-#define __TEMPLATE_HPP__
+#ifndef __LEXER_HPP__
+#define __LEXER_HPP__
 
 #include "token.hpp"
 
